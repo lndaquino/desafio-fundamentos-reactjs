@@ -23,24 +23,41 @@ const Import: React.FC = () => {
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
-    // const data = new FormData();
-
-    // TODO
-
-    try {
-      // await api.post('/transactions/import', data);
-    } catch (err) {
-      // console.log(err.response.error);
+    if (!uploadedFiles.length) {
+      console.log('Sem arquivos para enviar');
+      return;
     }
+
+    uploadedFiles.map(async (uploadedFile) => {
+      const data = new FormData();
+      const { file } = uploadedFile;
+      data.append('file', file);
+
+      try {
+        await api.post('/transactions/import', data);
+      } catch (err) {
+        console.log(err.response.error);
+      }
+    });
+
+    history.go(0);
   }
 
   function submitFile(files: File[]): void {
-    // TODO
+    const newFiles = files.map((file) => {
+      const newFile = {
+        file,
+        name: file.name,
+        readableSize: file.size.toString(),
+      };
+      return newFile;
+    });
+    setUploadedFiles(newFiles);
   }
 
   return (
     <>
-      <Header size="small" />
+      <Header size="small" activePage="import" />
       <Container>
         <Title>Importar uma transação</Title>
         <ImportFileContainer>

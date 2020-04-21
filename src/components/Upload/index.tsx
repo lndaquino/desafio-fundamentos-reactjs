@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-
+// tem q mudar o accept do dropzone e o type do file para application/vnd.ms-excel - antes era text/csv
 import Dropzone from 'react-dropzone';
 import { DropContainer, UploadMessage } from './styles';
 
@@ -27,7 +27,10 @@ const Upload: React.FC<UploadProps> = ({ onUpload }: UploadProps) => {
 
   return (
     <>
-      <Dropzone accept="text/csv" onDropAccepted={(files) => onUpload(files)}>
+      <Dropzone
+        accept="application/vnd.ms-excel"
+        onDropAccepted={(files) => onUpload(files)}
+      >
         {({ getRootProps, getInputProps, isDragActive, isDragReject }): any => (
           <DropContainer
             {...getRootProps()}

@@ -8,3 +8,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
+
+/* falta formatar data na listagem e colocar risco laranja embaixo do link da página ativa */
